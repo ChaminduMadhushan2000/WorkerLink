@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap(): Promise<void> {
   const logger = new Logger('Bootstrap');
@@ -12,21 +14,27 @@ async function bootstrap(): Promise<void> {
 
   // Global prefix — all routes start with /api/v1
   app.setGlobalPrefix('api/v1', {
-    exclude: ['api/health'], // health check has no version prefix
+    exclude: ['api/health'],
   });
 
-  // Global validation pipe — guidebook requirement
+  // Global exception filter — must be registered before interceptor
+  app.useGlobalFilters(new GlobalExceptionFilter());
+
+  // Global response interceptor
+  app.useGlobalInterceptors(new ResponseInterceptor());
+
+  // Global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // strip fields not in DTO
-      forbidNonWhitelisted: true, // throw error if unknown fields sent
-      transform: true, // auto-transform types (string to number etc)
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
 
-  // CORS — allow frontend to talk to backend during development
+  // CORS
   app.enableCors({
-    origin: 'http://localhost:5173', // Vite's default port
+    origin: 'http://localhost:5173',
     credentials: true,
   });
 
@@ -35,4 +43,7 @@ async function bootstrap(): Promise<void> {
   logger.log(`Environment: ${configService.get<string>('NODE_ENV')}`);
 }
 
-bootstrap();
+bootstrap().catch((error: unknown) => {
+  console.error(error);
+  process.exit(1);
+});
