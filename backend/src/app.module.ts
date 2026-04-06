@@ -2,14 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
-import { CommonModule } from './common/common.module';
+import { HealthModule } from './health/health.module';
 import * as Joi from 'joi';
 
 @Module({
   imports: [
-    // ─── Environment Variables ───────────────────────────────────────
     ConfigModule.forRoot({
-      isGlobal: true, // no need to import ConfigModule in every module
+      isGlobal: true,
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
         NODE_ENV: Joi.string()
@@ -27,7 +26,6 @@ import * as Joi from 'joi';
       }),
     }),
 
-    // ─── Database ────────────────────────────────────────────────────
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -44,7 +42,6 @@ import * as Joi from 'joi';
       inject: [ConfigService],
     }),
 
-    // ─── Redis / BullMQ ──────────────────────────────────────────────
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -56,7 +53,7 @@ import * as Joi from 'joi';
       inject: [ConfigService],
     }),
 
-    CommonModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
