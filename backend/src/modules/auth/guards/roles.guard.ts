@@ -1,9 +1,13 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { UserRole } from '../entities/user.entity';
-import { User } from '../entities/user.entity';
-
-export const ROLES_KEY = 'roles';
+import { Request } from 'express';
+import { ROLES_KEY } from '../decorators/roles.decorator';
+import { User, UserRole } from '../../modules/auth/entities/user.entity';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -15,13 +19,24 @@ export class RolesGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
 
-    if (!requiredRoles) {
+    if (!requiredRoles || requiredRoles.length === 0) {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest<{ user: User }>();
-    const user = request.user;
+    const request = context.switchToHttp().getRequest<Request>();
+    const user = request.user as User;
 
-    return requiredRoles.includes(user.role);
+    if (!user) {
+      throw new ForbiddenException('Access denied');
+    }
+
+    const hasRole = requiredRoles.some((role) => user.role === role);
+    if (!hasRole) {
+      throw new ForbiddenException(
+        'You do not have permission to access this resource',
+      );
+    }
+
+    return true;
   }
 }

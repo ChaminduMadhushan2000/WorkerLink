@@ -32,7 +32,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
 
     if (!user) {
-      throw new UnauthorizedException('User not found');
+      throw new UnauthorizedException('User no longer exists');
     }
 
     if (user.status === UserStatus.PAUSED) {

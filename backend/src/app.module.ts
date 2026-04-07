@@ -55,7 +55,6 @@ import * as Joi from 'joi';
     }),
 
     HealthModule,
-
     AuthModule,
   ],
 })
