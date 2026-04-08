@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MasterDataModule } from './modules/master-data/master-data.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -56,6 +57,7 @@ import * as Joi from 'joi';
 
     HealthModule,
     AuthModule,
+    MasterDataModule,
   ],
 })
 export class AppModule {}
