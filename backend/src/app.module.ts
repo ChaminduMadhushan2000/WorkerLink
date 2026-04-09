@@ -13,6 +13,7 @@ import { SiteVisitsModule } from './modules/site-visits/site-visits.module';
 import { AgreementsModule } from './modules/agreements/agreements.module';
 import { CancellationsModule } from './modules/cancellations/cancellations.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { AdminModule } from './modules/admin/admin.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -74,6 +75,7 @@ import * as Joi from 'joi';
     AgreementsModule,
     CancellationsModule,
     NotificationsModule,
+    AdminModule,
   ],
 })
 export class AppModule {}
