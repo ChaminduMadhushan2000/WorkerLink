@@ -1,6 +1,6 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
-import { Job } from 'bull';
+import type { Job } from 'bull';
 
 export const EMAIL_QUEUE = 'EMAIL_QUEUE';
 
@@ -15,7 +15,7 @@ export class EmailProcessor {
   private readonly logger = new Logger(EmailProcessor.name);
 
   @Process('send-email')
-  async handleSendEmail(job: Job<EmailJobPayload>): Promise<void> {
+  handleSendEmail(job: Job<EmailJobPayload>): void {
     try {
       this.logger.log(
         JSON.stringify({

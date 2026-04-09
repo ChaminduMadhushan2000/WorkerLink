@@ -7,9 +7,3 @@ import { PlatformService } from './platform.service';
   providers: [PlatformService],
 })
 export class PlatformModule {}
-```
-
-### 10.5 — Register in AppModule
-
-```typescript
-import { PlatformModule } from './modules/platform/platform.module';

@@ -2,10 +2,8 @@ import { Controller, Get, Post, Param, Body, UseGuards } from '@nestjs/common';
 import { AgreementsService } from './agreements.service';
 import { ProposeAgreementDto } from './dto/propose-agreement.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { Roles } from '../../common/decorators/roles.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import { User, UserRole } from '../auth/entities/user.entity';
+import { User } from '../auth/entities/user.entity';
 import { ServiceResult } from '../../common/interfaces/api-response.interface';
 import { Agreement } from './entities/agreement.entity';
 

@@ -2,6 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+import * as Joi from 'joi';
+
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MasterDataModule } from './modules/master-data/master-data.module';
@@ -15,9 +19,6 @@ import { CancellationsModule } from './modules/cancellations/cancellations.modul
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { PlatformModule } from './modules/platform/platform.module';
-import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
-import * as Joi from 'joi';
 
 @Module({
   imports: [
@@ -67,6 +68,8 @@ import * as Joi from 'joi';
       inject: [ConfigService],
     }),
 
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
+
     HealthModule,
     AuthModule,
     MasterDataModule,
@@ -80,12 +83,6 @@ import * as Joi from 'joi';
     NotificationsModule,
     AdminModule,
     PlatformModule,
-  ],
-})
-@Module({
-  imports: [
-    // ... all your other modules
-    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
   ],
   providers: [
     {

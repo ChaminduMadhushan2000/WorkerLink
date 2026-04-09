@@ -42,7 +42,7 @@ export class MessagingGateway
     private readonly configService: ConfigService,
   ) {}
 
-  async handleConnection(client: Socket): Promise<void> {
+  handleConnection(client: Socket): void {
     try {
       const token =
         (client.handshake.auth['token'] as string) ||
