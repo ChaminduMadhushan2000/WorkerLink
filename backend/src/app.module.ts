@@ -8,6 +8,7 @@ import { MasterDataModule } from './modules/master-data/master-data.module';
 import { ContractorModule } from './modules/contractor/contractor.module';
 import { JobPostsModule } from './modules/job-posts/job-posts.module';
 import { ProposalsModule } from './modules/proposals/proposals.module';
+import { MessagingModule } from './modules/messaging/messaging.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -64,6 +65,7 @@ import * as Joi from 'joi';
     ContractorModule,
     JobPostsModule,
     ProposalsModule,
+    MessagingModule,
   ],
 })
 export class AppModule {}
