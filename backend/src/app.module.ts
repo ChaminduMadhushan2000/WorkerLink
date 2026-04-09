@@ -9,6 +9,7 @@ import { ContractorModule } from './modules/contractor/contractor.module';
 import { JobPostsModule } from './modules/job-posts/job-posts.module';
 import { ProposalsModule } from './modules/proposals/proposals.module';
 import { MessagingModule } from './modules/messaging/messaging.module';
+import { SiteVisitsModule } from './modules/site-visits/site-visits.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -66,6 +67,7 @@ import * as Joi from 'joi';
     JobPostsModule,
     ProposalsModule,
     MessagingModule,
+    SiteVisitsModule,
   ],
 })
 export class AppModule {}
