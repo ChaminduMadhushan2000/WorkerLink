@@ -12,6 +12,7 @@ import { MessagingModule } from './modules/messaging/messaging.module';
 import { SiteVisitsModule } from './modules/site-visits/site-visits.module';
 import { AgreementsModule } from './modules/agreements/agreements.module';
 import { CancellationsModule } from './modules/cancellations/cancellations.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -72,6 +73,7 @@ import * as Joi from 'joi';
     SiteVisitsModule,
     AgreementsModule,
     CancellationsModule,
+    NotificationsModule,
   ],
 })
 export class AppModule {}
