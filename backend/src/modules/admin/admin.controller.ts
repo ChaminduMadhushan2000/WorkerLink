@@ -23,9 +23,7 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Get('users/search')
-  async searchUsers(
-    @Query('q') query: string,
-  ): Promise<ServiceResult<User[]>> {
+  async searchUsers(@Query('q') query: string): Promise<ServiceResult<User[]>> {
     return this.adminService.searchUsers(query);
   }
 

@@ -14,6 +14,9 @@ import { AgreementsModule } from './modules/agreements/agreements.module';
 import { CancellationsModule } from './modules/cancellations/cancellations.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { PlatformModule } from './modules/platform/platform.module';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 import * as Joi from 'joi';
 
 @Module({
@@ -76,6 +79,19 @@ import * as Joi from 'joi';
     CancellationsModule,
     NotificationsModule,
     AdminModule,
+    PlatformModule,
+  ],
+})
+@Module({
+  imports: [
+    // ... all your other modules
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

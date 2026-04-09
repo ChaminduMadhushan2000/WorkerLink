@@ -4,9 +4,7 @@ import { NotificationsService } from './notifications.service';
 import { EmailProcessor, EMAIL_QUEUE } from './processors/email.processor';
 
 @Module({
-  imports: [
-    BullModule.registerQueue({ name: EMAIL_QUEUE }),
-  ],
+  imports: [BullModule.registerQueue({ name: EMAIL_QUEUE })],
   providers: [NotificationsService, EmailProcessor],
   exports: [NotificationsService],
 })

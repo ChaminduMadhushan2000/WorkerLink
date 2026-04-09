@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Param,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { CancellationsService } from './cancellations.service';
 import { RequestCancellationDto } from './dto/request-cancellation.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';

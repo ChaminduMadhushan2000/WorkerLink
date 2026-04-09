@@ -7,9 +7,7 @@ import { EMAIL_QUEUE, EmailJobPayload } from './processors/email.processor';
 export class NotificationsService {
   private readonly logger = new Logger(NotificationsService.name);
 
-  constructor(
-    @InjectQueue(EMAIL_QUEUE) private readonly emailQueue: Queue,
-  ) {}
+  constructor(@InjectQueue(EMAIL_QUEUE) private readonly emailQueue: Queue) {}
 
   async sendEmail(payload: EmailJobPayload): Promise<void> {
     await this.emailQueue.add('send-email', payload, {
