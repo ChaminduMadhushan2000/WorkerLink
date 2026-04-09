@@ -143,7 +143,11 @@ export class ContractorService {
       if (!result.data) {
         throw new NotFoundException('Contractor not found');
       }
-      return { success: true, message: 'Contractor fetched', data: result.data };
+      return {
+        success: true,
+        message: 'Contractor fetched',
+        data: result.data,
+      };
     } catch (error: unknown) {
       if (error instanceof NotFoundException) throw error;
       this.logger.error(
@@ -249,7 +253,9 @@ export class ContractorService {
     }
   }
 
-  async getContractorByUserId(userId: string): Promise<ServiceResult<Contractor>> {
+  async getContractorByUserId(
+    userId: string,
+  ): Promise<ServiceResult<Contractor>> {
     return this._findByUserId(userId);
   }
 
