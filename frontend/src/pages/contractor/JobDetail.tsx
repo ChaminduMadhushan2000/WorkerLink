@@ -15,7 +15,7 @@ import { Select } from '../../components/ui/Select';
 import { Textarea } from '../../components/ui/Textarea';
 import { Modal } from '../../components/ui/Modal';
 import { PageLoader } from '../../components/ui/Spinner';
-import { formatDate, formatLkr } from '../../lib/utils';
+import { formatDate } from '../../lib/utils';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 

@@ -85,7 +85,7 @@ export function ContractorDashboard(): JSX.Element {
                 <div key={proposal.id} className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition-colors">
                   <div className="min-w-0">
                     <p className="font-display font-medium text-sm text-gray-900 truncate">
-                      {proposal.jobPost?.title ?? 'Job post'}
+                      {proposal.jobPostId}
                     </p>
                     <p className="text-xs text-gray-400 mt-0.5">{formatRelativeTime(proposal.createdAt)}</p>
                   </div>

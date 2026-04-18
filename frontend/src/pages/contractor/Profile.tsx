@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -6,14 +6,12 @@ import { useState, useEffect } from 'react';
 import { LayoutGrid, Search, FileText, User, CheckCircle } from 'lucide-react';
 import { contractorApi } from '../../api/contractor';
 import { categoriesApi } from '../../api/categories';
-import { useAuthStore } from '../../store/auth.store';
 import { DashboardLayout } from '../../components/layout/DashboardLayout';
 import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { Textarea } from '../../components/ui/Textarea';
 import { Button } from '../../components/ui/Button';
 import { PageLoader } from '../../components/ui/Spinner';
-import { Badge } from '../../components/ui/Badge';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
@@ -37,7 +35,6 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function ContractorProfile(): JSX.Element {
-  const user = useAuthStore((s) => s.user);
   const queryClient = useQueryClient();
   const [loading, setLoading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);

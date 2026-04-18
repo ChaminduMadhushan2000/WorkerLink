@@ -11,6 +11,8 @@ import { Select } from '../../components/ui/Select';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
+const userRoles = ['customer', 'contractor'] as const;
+
 const schema = z.object({
   firstName: z.string().min(2, 'First name is required'),
   lastName: z.string().min(2, 'Last name is required'),
@@ -22,7 +24,7 @@ const schema = z.object({
     .regex(/[A-Z]/, 'Must include an uppercase letter')
     .regex(/[0-9]/, 'Must include a number')
     .regex(/[^A-Za-z0-9]/, 'Must include a special character'),
-  role: z.enum(['customer', 'contractor'], { required_error: 'Select a role' }),
+  role: z.enum(userRoles, { message: 'Select a role' }),
 });
 
 type FormData = z.infer<typeof schema>;

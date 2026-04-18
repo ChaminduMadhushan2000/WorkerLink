@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Briefcase, Shield, Users, Zap, ArrowRight, CheckCircle, Star, MapPin } from 'lucide-react';
+import { Briefcase, Shield, Users, Zap, ArrowRight, Star, MapPin } from 'lucide-react';
 import { Navbar } from '../components/layout/Navbar';
 
 const features = [

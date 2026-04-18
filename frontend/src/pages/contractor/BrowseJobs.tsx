@@ -5,7 +5,6 @@ import { LayoutGrid, Search, FileText, User, MapPin, Calendar, Filter, ArrowRigh
 import { jobPostsApi } from '../../api/job-posts';
 import { categoriesApi } from '../../api/categories';
 import { DashboardLayout } from '../../components/layout/DashboardLayout';
-import { Badge } from '../../components/ui/Badge';
 import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { PageLoader } from '../../components/ui/Spinner';

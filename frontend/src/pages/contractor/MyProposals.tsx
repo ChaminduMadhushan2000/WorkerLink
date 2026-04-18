@@ -50,7 +50,7 @@ export function MyProposals(): JSX.Element {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-1">
                       <h3 className="font-display font-semibold text-gray-900 text-sm">
-                        {proposal.jobPost?.title ?? 'Job post'}
+                        {proposal.jobPostId}
                       </h3>
                       <Badge status={proposal.status} />
                     </div>
