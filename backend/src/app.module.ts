@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import * as fs from 'node:fs';
 import * as Joi from 'joi';
 
 import { HealthModule } from './health/health.module';
@@ -34,6 +35,12 @@ import { PlatformModule } from './modules/platform/platform.module';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required(),
+        DB_SSL: Joi.boolean().truthy('true').falsy('false').default(false),
+        DB_SSL_REJECT_UNAUTHORIZED: Joi.boolean()
+          .truthy('true')
+          .falsy('false')
+          .default(true),
+        DB_SSL_CA_FILE: Joi.string().allow('').optional(),
         REDIS_HOST: Joi.string().required(),
         REDIS_PORT: Joi.number().default(6379),
         JWT_ACCESS_SECRET: Joi.string().required(),
@@ -53,6 +60,22 @@ import { PlatformModule } from './modules/platform/platform.module';
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: configService.get<string>('NODE_ENV') === 'development',
         logging: configService.get<string>('NODE_ENV') === 'development',
+        ssl: (() => {
+          const useSsl = configService.get<boolean>('DB_SSL') ?? false;
+
+          if (!useSsl) {
+            return false;
+          }
+
+          const rejectUnauthorized =
+            configService.get<boolean>('DB_SSL_REJECT_UNAUTHORIZED') ?? true;
+          const caFile = configService.get<string>('DB_SSL_CA_FILE');
+
+          return {
+            rejectUnauthorized,
+            ...(caFile ? { ca: fs.readFileSync(caFile, 'utf8') } : {}),
+          };
+        })(),
       }),
       inject: [ConfigService],
     }),
