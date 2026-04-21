@@ -30,13 +30,10 @@ export class RegisterDto {
   @IsString()
   @MinLength(8)
   @MaxLength(72)
-  @Matches(
-    /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
-    {
-      message:
-        'Password must contain at least 1 uppercase letter, 1 number, and 1 special character',
-    },
-  )
+  @Matches(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])/, {
+    message:
+      'Password must contain at least 1 uppercase letter, 1 number, and 1 special character',
+  })
   password: string;
 
   @IsEnum(UserRole, {
