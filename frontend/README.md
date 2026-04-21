@@ -71,3 +71,5 @@ export default defineConfig([
   },
 ]);
 ```
+
+Testing 2 workflow
